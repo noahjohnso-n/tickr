@@ -1,0 +1,142 @@
+<%- include("partials/list-header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "/styles/home.css"> 
+    <title>Home</title>
+</head>
+<body id = "list-home">
+    <div id = "home">
+    
+    <% let len = todo.length; %>
+    <script>
+
+        $(document).ready(function(){
+            $("#popup").click(function(){
+                $("#top-div").addClass("hide-it");
+                $("#popup").addClass("hide-it");
+                $("#top-div").css({height: '50px', width: '400px'});
+                $("#input-task").css({width: '250px'});
+            });
+
+            $("#add-todo").click(function(){
+                $("#top-div").removeClass("hide-it");
+                $("#popup").removeClass("hide-it");
+                $("#top-div").animate({up: '250px', height: '+=100px', width: '+=100px'}, "fast");
+                $("#input-task").animate({width: '+=200px'}, "fast");
+            });
+
+
+            let todoCount = 0;
+            let atEnd = false;
+            while(!atEnd){
+                if($(`#span-${todoCount}`).length){
+                    todoCount++;
+                }else{
+                    atEnd = true;
+                }
+            }
+            
+        });
+        
+    </script>
+
+    <% function getDate(x){ %>
+        <% var year, month, day;%>
+        <% var date = JSON.stringify(x); %>
+        <% year = date.substring(1,5) %>
+        <% month = date.substring(6,8) %>
+        <% day = date.substring(9,11) %>
+        <% var color; %>
+
+        <% if(month == "01"){ %>
+            <% month = "Jan"; %>
+        <% } else if(month == "02"){ %>
+            <% month = "Feb"; %>
+        <% } else if(month == "03"){ %>
+            <% month = "Mar"; %>
+        <% }  else if(month == "04"){ %>
+            <% month = "Apr"; %>
+        <% } else if(month == "05"){ %>
+            <% month = "May"; %>
+        <% } else if(month == "06"){ %>
+            <% month = "Jun"; %>
+        <% } else if(month == "07"){ %>
+            <% month = "Jul"; %>
+        <% } else if(month == "08"){ %>
+            <% month = "Aug"; %>
+        <% } else if(month == "09"){ %>
+            <% month = "Sep"; %>
+        <% } else if(month == "10"){ %>
+            <% month = "Oct"; %>
+        <% } else if(month == "11"){ %>
+            <% month = "Nov"; %>
+        <% } else if(month == "12"){ %>
+            <% month = "Dec"; %>
+        <% } %>
+
+
+        <% if(day == "01"){ %>
+            <% day = "1"; %>
+        <% } else if(day == "02"){ %>
+            <% day = "2"; %>
+        <% } else if(day == "03"){ %>
+            <% day = "3"; %>
+        <% }  else if(day == "04"){ %>
+            <% day = "4"; %>
+        <% } else if(day == "05"){ %>
+            <% day = "5"; %>
+        <% } else if(day == "06"){ %>
+            <% day = "6"; %>
+        <% } else if(day == "07"){ %>
+            <% day = "7"; %>
+        <% } else if(day == "08"){ %>
+            <% day = "8"; %>
+        <% } else if(day == "09"){ %>
+            <% day = "9"; %>
+        <% } %>
+        
+        <% return [year, month, day, color]; %>
+    <% } %>
+
+    <div id = "vh">
+        <div id = "todo-screen">
+            <div id = "popup" class = "hide-it"></div>
+            <div id = "top-div" class = "add-new hide-it">
+                <form id = "task-form" action = "/add" method = "POST">
+                    <input id = "input-task" name = "new-task-desc" placeholder="Task" autocomplete="off">
+                    <div id = "date-div">
+                        <input class = "inputs" id = "input-month" name = "new-task-month" placeholder="Month" autocomplete="off">
+                        <input class = "inputs" id = "input-day" name = "new-task-day" placeholder="Day" autocomplete="off">
+                        <input class = "inputs" id = "input-year" name = "new-task-year" placeholder="Year" autocomplete="off">
+                        <input id = "hiddenCurUser" name = "current_account" value = "<%= cur_user  %>">
+                        <button class = "inputs" id = "add-task" type = "submit">Add task</button>
+                    </div>
+                </form>
+            </div>
+            
+            <button id = "add-todo"><i id = "plus-icon" class="bi bi-plus"></i></button>
+            <% todo.sort((a, b) => a.due - b.due); %>
+            
+            <% for(var i = 0 ; i < todo.length ; i++){%>
+                <div class = "todo-card">
+                    <form id = "myForm" action = "/delete" method = "POST">
+                        <button type = "submit" class = "circle-button"></button>
+                        <% const [year,month,day,color] = getDate(todo[i].due) %>
+                        <div class = "task-info">
+                            <div><p name = "checked-task" class = "task-desc"><%= todo[i].task %></p></div>
+                            <% let tempId = `span-${i}`; %>
+                            <div><span id = <%= tempId %> class = "align-right" data-todo="<%= todo[i].due %>"><%= month %> <%= day %></span></div>
+                        </div>
+                        <input id = "inputText" type="hidden" name="checked-task" value="<%= todo[i].task %>">
+                    </form>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <a id = "logout-button" href = "/logout" role = "button">Log Out</a>
+    </div>
+</body>
+</html>

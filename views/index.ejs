@@ -1,0 +1,19 @@
+<%- include("partials/login-header.ejs") %>
+    <main>
+        <div id = "login-page">
+            <img id = "login-icon-center" src = "images/tickr-logo-secondary.png">
+            <h1 id = "login-title">Login.</h1>
+            <% if(locals.error){ %>
+                <div class = "my-2 px-3 py-2 incorrect-input">Incorrect username or password.</div>
+            <% } %>
+            <form id = "login-form" action="/" method="post">
+                <input name = "email" id = "email-input" placeholder="Email address" autocomplete="off">
+                <input name = "password" id = "password-input" placeholder="Password" autocomplete="off">
+                <button id = "login-submit" type="submit">Login</button>
+            </form>
+            <a id = "google-login-anchor" href = "/auth/google" role = "button"><img id = "google-login" src = "images/web_light_rd_SI@2x.png"></a>
+            <div id = "no-account">Don't have an account?<a class = "anchor" href = "/register"><span id = "sign-in-span">Sign up</span></a></div>
+        </div>
+    </main>
+</body>
+</html>
