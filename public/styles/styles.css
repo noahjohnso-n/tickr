@@ -24,7 +24,8 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 10vh;
+    height: 72px;
+    /* height: 10vh !important; */
     background-color: var(--dark-primary);
 }
 
@@ -230,7 +231,10 @@ header{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 90vh;
+    /* height: 90vh; */
+    min-height: 90vh;
+    height: fit-content;
+    padding-bottom: 50px;
     width: 100%;
     background-color: var(--dark-secondary);
 }
@@ -449,7 +453,7 @@ header{
 }
 
 #todo-screen{
-    position: relative;
+    position: absolute;
     z-index: 0 !important;
     width: 100%;
     height: fit-content;
