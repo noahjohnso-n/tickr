@@ -35,19 +35,21 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const db = new pg.Client({
-    // connectionString: process.env.DATABASE_URL,
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    connectionTimeoutMillis: 5000,  // Increase the timeout
+    connectionString: process.env.DATABASE_URL,
+    // user: process.env.DB_USER,
+    // host: process.env.DB_HOST,
+    // database: process.env.DB_DATABASE,
+    // password: process.env.DB_PASSWORD,
+    // port: process.env.DB_PORT,
+    connectionTimeoutMillis: 10000,  // Increase the timeout
     ssl:{
         rejectUnauthorized: false
     }
 });
   
-  db.connect();
+  db.connect()
+  .then(() => console.log('Connected to the database'))
+  .catch(err => console.error('Error connecting to the database', err));
 
 //   db.connect().catch(err => {
 //     console.error('Error connecting to database RIGHT HERE *****', err);
