@@ -270,6 +270,7 @@ passport.use("local", new Strategy({usernameField: 'email', passwordField: 'pass
                     cb(err);
                 }else{
                     console.log(result);
+                    console.log("Check error here.");
                     if(result){
                         error = false;
                         return cb(null, user);
