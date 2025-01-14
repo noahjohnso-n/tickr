@@ -36,11 +36,6 @@ app.use(passport.session());
 
 const db = new pg.Client({
     connectionString: process.env.DATABASE_URL,
-    // user: process.env.DB_USER,
-    // host: process.env.DB_HOST,
-    // database: process.env.DB_DATABASE,
-    // password: process.env.DB_PASSWORD,
-    // port: process.env.DB_PORT,
     connectionTimeoutMillis: 10000,  // Increase the timeout
     ssl:{
         rejectUnauthorized: false
@@ -55,13 +50,15 @@ const db = new pg.Client({
     console.error('Error type ... : ', err.name);
   });
 
-//   db.connect().catch(err => {
-//     console.error('Error connecting to database RIGHT HERE *****', err);
-//   });
+  // user: process.env.DB_USER,
+    // host: process.env.DB_HOST,
+    // database: process.env.DB_DATABASE,
+    // password: process.env.DB_PASSWORD,
+    // port: process.env.DB_PORT,
 
   db.query("select * from users", (err, res) => {
     if(err){
-        console.log("ERROR", err.stack);
+        console.log("ERROR GETTING DATA FROM users", err.stack);
     }else{
         users = res.rows;
     }
@@ -69,7 +66,7 @@ const db = new pg.Client({
 
   db.query("select email from users", (err, res) => {
     if(err){
-        console.log("ERROR", err.stack);
+        console.log("ERROR GETTING EMAIL DATA FROM users", err.stack);
     }else{
         user_emails = res.rows;
     }
