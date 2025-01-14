@@ -42,16 +42,16 @@ const db = new pg.Client({
     host: process.env.DB_HOST,
     ssl: true,
     ssl: { rejectUnauthorized: false },
-    connectionTimeoutMillis: 60000
+    connectionTimeoutMillis: 10000
 });
   
   db.connect()
-  .then(() => console.log('Connected to the database'))
-  .catch((err) => {
-    console.error('Connection error:', err.message);
-    console.error('Stack trace:', err.stack);
-    console.error('Error type ... : ', err.name);
-  });
+//   .then(() => console.log('Connected to the database'))
+//   .catch((err) => {
+//     console.error('Connection error:', err.message);
+//     console.error('Stack trace:', err.stack);
+//     console.error('Error type ... : ', err.name);
+//   });
 
 //   db.query("create table users( id serial primary key, email varchar(50), password varchar(100), fname varchar(50), lname varchar(50), username varchar(50))", (err, res) => {
 //     if(err){
