@@ -49,7 +49,10 @@ const db = new pg.Client({
   
   db.connect()
   .then(() => console.log('Connected to the database'))
-  .catch(err => console.error('Error connecting to the database', err));
+  .catch((err) => {
+    console.error('Connection error:', err.message);
+    console.error('Stack trace:', err.stack);
+  });
 
 //   db.connect().catch(err => {
 //     console.error('Error connecting to database RIGHT HERE *****', err);
