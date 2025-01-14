@@ -50,11 +50,21 @@ const db = new pg.Client({
     console.error('Error type ... : ', err.name);
   });
 
-  // user: process.env.DB_USER,
-    // host: process.env.DB_HOST,
-    // database: process.env.DB_DATABASE,
-    // password: process.env.DB_PASSWORD,
-    // port: process.env.DB_PORT,
+  db.query("create table users( id serial primary key, email varchar(50), password varchar(100), fname varchar(50), lname varchar(50), username varchar(50))", (err, res) => {
+    if(err){
+        console.log("ERROR CREATING TABLE USERS", err.message);
+    }else{
+        console.log("USERS TABLE CREATED SUCCESSFULLY!");
+    }
+  });
+
+  db.query("create table todo( id serial primary key, user_id int, task text, due date, foreign key (user_id) references users(id))", (err, res) => {
+    if(err){
+        console.log("ERROR CREATING TABLE TOOD", err.message);
+    }else{
+        console.log("TODO TABLE CREATED SUCCESSFULLY!");
+    }
+  });
 
   db.query("select * from users", (err, res) => {
     if(err){
@@ -330,3 +340,5 @@ passport.deserializeUser((user, cb) => {
 app.listen(port, (req, res) => {
     console.log(`Server now running on port ${port}`);
 });
+
+db.end();
