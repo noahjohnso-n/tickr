@@ -52,6 +52,7 @@ const db = new pg.Client({
   .catch((err) => {
     console.error('Connection error:', err.message);
     console.error('Stack trace:', err.stack);
+    console.error('Error type ... : ', err.name);
   });
 
 //   db.connect().catch(err => {
