@@ -48,6 +48,10 @@ const db = new pg.Client({
   
   db.connect();
 
+  db.connect().catch(err => {
+    console.error('Error connecting to database RIGHT HERE *****', err);
+  });
+
   db.query("select * from users", (err, res) => {
     if(err){
         console.log("ERROR", err.stack);
