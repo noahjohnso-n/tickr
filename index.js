@@ -50,37 +50,37 @@ const db = new pg.Client({
     console.error('Error type ... : ', err.name);
   });
 
-  db.query("create table users( id serial primary key, email varchar(50), password varchar(100), fname varchar(50), lname varchar(50), username varchar(50))", (err, res) => {
-    if(err){
-        console.log("ERROR CREATING TABLE USERS", err.message);
-    }else{
-        console.log("USERS TABLE CREATED SUCCESSFULLY!");
-    }
-  });
+//   db.query("create table users( id serial primary key, email varchar(50), password varchar(100), fname varchar(50), lname varchar(50), username varchar(50))", (err, res) => {
+//     if(err){
+//         console.log("ERROR CREATING TABLE USERS", err.message);
+//     }else{
+//         console.log("USERS TABLE CREATED SUCCESSFULLY!");
+//     }
+//   });
 
-  db.query("create table todo( id serial primary key, user_id int, task text, due date, foreign key (user_id) references users(id))", (err, res) => {
-    if(err){
-        console.log("ERROR CREATING TABLE TOOD", err.message);
-    }else{
-        console.log("TODO TABLE CREATED SUCCESSFULLY!");
-    }
-  });
+//   db.query("create table todo( id serial primary key, user_id int, task text, due date, foreign key (user_id) references users(id))", (err, res) => {
+//     if(err){
+//         console.log("ERROR CREATING TABLE TOOD", err.message);
+//     }else{
+//         console.log("TODO TABLE CREATED SUCCESSFULLY!");
+//     }
+//   });
 
-  db.query("select * from users", (err, res) => {
-    if(err){
-        console.log("ERROR GETTING DATA FROM users", err.stack);
-    }else{
-        users = res.rows;
-    }
-  });
+//   db.query("select * from users", (err, res) => {
+//     if(err){
+//         console.log("ERROR GETTING DATA FROM users", err.stack);
+//     }else{
+//         users = res.rows;
+//     }
+//   });
 
-  db.query("select email from users", (err, res) => {
-    if(err){
-        console.log("ERROR GETTING EMAIL DATA FROM users", err.stack);
-    }else{
-        user_emails = res.rows;
-    }
-  });
+//   db.query("select email from users", (err, res) => {
+//     if(err){
+//         console.log("ERROR GETTING EMAIL DATA FROM users", err.stack);
+//     }else{
+//         user_emails = res.rows;
+//     }
+//   });
 
 app.get("/", (req, res) =>{
     if(error){
