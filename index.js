@@ -34,16 +34,28 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const db = new pg.Client({
+// const db = new pg.Client({
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_DATABASE,
+//     port: process.env.DB_PORT,
+//     host: process.env.DB_HOST,
+//     ssl: true,
+//     ssl: { rejectUnauthorized: false },
+//     connectionTimeoutMillis: 10000
+// });
+
+const db = new Pool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     port: process.env.DB_PORT,
     host: process.env.DB_HOST,
-    ssl: true,
-    ssl: { rejectUnauthorized: false },
-    connectionTimeoutMillis: 10000
-});
+    ssl: { rejectUnauthorized: false }, // Ensure SSL is configured correctly
+    connectionTimeoutMillis: 10000, // Connection timeout
+    max: 20, // Maximum number of clients in the pool (you can adjust this)
+    idleTimeoutMillis: 30000, // Time before an idle connection is closed
+  });
   
   db.connect()
 //   .then(() => console.log('Connected to the database'))
@@ -69,21 +81,21 @@ const db = new pg.Client({
 //     }
 //   });
 
-//   db.query("select * from users", (err, res) => {
-//     if(err){
-//         console.log("ERROR GETTING DATA FROM users", err.stack);
-//     }else{
-//         users = res.rows;
-//     }
-//   });
+  db.query("select * from users", (err, res) => {
+    if(err){
+        console.log("ERROR GETTING DATA FROM users", err.stack);
+    }else{
+        users = res.rows;
+    }
+  });
 
-//   db.query("select email from users", (err, res) => {
-//     if(err){
-//         console.log("ERROR GETTING EMAIL DATA FROM users", err.stack);
-//     }else{
-//         user_emails = res.rows;
-//     }
-//   });
+  db.query("select email from users", (err, res) => {
+    if(err){
+        console.log("ERROR GETTING EMAIL DATA FROM users", err.stack);
+    }else{
+        user_emails = res.rows;
+    }
+  });
 
 app.get("/", (req, res) =>{
     if(error){
