@@ -41,10 +41,8 @@ const db = new pg.Client({
     port: process.env.DB_PORT,
     host: process.env.DB_HOST,
     ssl: true,
-    connectionTimeoutMillis: 10000,  // Increase the timeout
-    // ssl:{
-    //     rejectUnauthorized: false
-    // }
+    ssl: { rejectUnauthorized: false },
+    connectionTimeoutMillis: 10000
 });
   
   db.connect()
