@@ -7,7 +7,6 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2"
 import env from "dotenv";
-import { createClient } from "@supabase/supabase-js";
 
 
 const app = express();
@@ -35,35 +34,35 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const db = new pg.Client({
-    connectionString: process.env.DATABASE_URL,
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    ssl:{
-        rejectUnauthorized: false
-    }
-});
+// const db = new pg.Client({
+//     connectionString: process.env.DATABASE_URL,
+//     user: process.env.DB_USER,
+//     host: process.env.DB_HOST,
+//     database: process.env.DB_DATABASE,
+//     password: process.env.DB_PASSWORD,
+//     port: process.env.DB_PORT,
+//     ssl:{
+//         rejectUnauthorized: false
+//     }
+// });
   
-  db.connect();
+//   db.connect();
 
-  db.query("select * from users", (err, res) => {
-    if(err){
-        console.log("ERROR", err.stack);
-    }else{
-        users = res.rows;
-    }
-  });
+//   db.query("select * from users", (err, res) => {
+//     if(err){
+//         console.log("ERROR", err.stack);
+//     }else{
+//         users = res.rows;
+//     }
+//   });
 
-  db.query("select email from users", (err, res) => {
-    if(err){
-        console.log("ERROR", err.stack);
-    }else{
-        user_emails = res.rows;
-    }
-  });
+//   db.query("select email from users", (err, res) => {
+//     if(err){
+//         console.log("ERROR", err.stack);
+//     }else{
+//         user_emails = res.rows;
+//     }
+//   });
 
 app.get("/", (req, res) =>{
     if(error){
