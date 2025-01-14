@@ -12,7 +12,6 @@ import env from "dotenv";
 const app = express();
 const port = process.env.PORT || 3000;
 const saltRounds = 10;
-const { Client } = pg
 env.config();
 
 let users = [];
