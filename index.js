@@ -107,7 +107,7 @@ app.get("/auth/google", passport.authenticate("google", {
 app.get("/auth/google/list", passport.authenticate("google", {
     successRedirect: "/list",
     failureRedirect: "/"
-}))
+}));
 
 app.get("/logout", (req, res) => {
     req.logout((err) => {
