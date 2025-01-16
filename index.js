@@ -7,12 +7,10 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2"
 import env from "dotenv";
-import pkg from 'pg';
-const { Pool } = pkg;
 
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const saltRounds = 10;
 env.config();
 
@@ -38,32 +36,10 @@ app.use(passport.session());
 
 const db = new pg.Client({
     connectionString: process.env.DB_URL,
-    ssl: { rejectUnauthorized: false}
+    // ssl: { rejectUnauthorized: false}
 });
   
   db.connect();
-//   .then(() => console.log('Connected to the database'))
-//   .catch((err) => {
-//     console.error('Connection error:', err.message);
-//     console.error('Stack trace:', err.stack);
-//     console.error('Error type ... : ', err.name);
-//   });
-
-//   db.query("create table users( id serial primary key, email varchar(50), password varchar(100), fname varchar(50), lname varchar(50), username varchar(50))", (err, res) => {
-//     if(err){
-//         console.log("ERROR CREATING TABLE USERS", err.message);
-//     }else{
-//         console.log("USERS TABLE CREATED SUCCESSFULLY!");
-//     }
-//   });
-
-//   db.query("create table todo( id serial primary key, user_id int, task text, due date, foreign key (user_id) references users(id))", (err, res) => {
-//     if(err){
-//         console.log("ERROR CREATING TABLE TOOD", err.message);
-//     }else{
-//         console.log("TODO TABLE CREATED SUCCESSFULLY!");
-//     }
-//   });
 
   db.query("select * from users", (err, res) => {
     if(err){
