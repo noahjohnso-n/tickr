@@ -608,6 +608,13 @@ header{
     }
 }
 
+@media screen and (max-width: 600px) {
+    #top-div{
+        width: 300px;
+        background-color: lime;
+    }
+}
+
 #input-task{
     background-color: var(--dark-primary);
     border-radius: 16px;
