@@ -291,7 +291,7 @@ passport.use("google", new GoogleStrategy({
         const result = await db.query("select * from users where email = $1", [profile.email])
         if(result.rows.length === 0){
             // USING THE GOOGLE SIGN IN, NO USER WITH THAT EMAIL IN OUR DATABASE, CREATE A NEW ACCOUNT AND REDIRECT TO LOGIN
-            const newUser = await db.query("insert into users (email, password, fname, l name, username) values ($1, $2, $3, $4, $5)", [profile.email, "google", "N/A", "N/A", profile.email]);
+            const newUser = await db.query("insert into users (email, password, fname, lname, username) values ($1, $2, $3, $4, $5)", [profile.email, "google", "N/A", "N/A", profile.email]);
             cb(null, newUser.rows[0]);
         }else{
             // ACCOUNT EXISTS, LOGGING THEM IN USING GOOGLE 
