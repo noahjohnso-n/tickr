@@ -36,7 +36,7 @@ app.use(passport.session());
 
 const db = new pg.Client({
     connectionString: process.env.DB_URL,
-    // ssl: { rejectUnauthorized: false}
+    ssl: { rejectUnauthorized: false} 
 });
   
   db.connect();
@@ -95,14 +95,14 @@ app.get("/list", async (req, res) => {
     }
 });
 
-app.get("/auth/google", passport.authenticate("google", {
-    scope: ["profile", "email"]
-}));
+// app.get("/auth/google", passport.authenticate("google", {
+//     scope: ["profile", "email"]
+// }));
 
-app.get("/auth/google/list", passport.authenticate("google", {
-    successRedirect: "/list",
-    failureRedirect: "/"
-}))
+// app.get("/auth/google/list", passport.authenticate("google", {
+//     successRedirect: "/list",
+//     failureRedirect: "/"
+// }))
 
 app.get("/logout", (req, res) => {
     req.logout((err) => {
@@ -280,29 +280,29 @@ passport.use("local", new Strategy({usernameField: 'email', passwordField: 'pass
     }
 }));
 
-passport.use("google", new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/list",
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-}, async (accessToken, refreshToken, profile, cb) => {
-    // console.log(profile);
-    try{
-        const result = await db.query("select * from users where email = $1", [profile.email])
-        if(result.rows.length === 0){
-            // USING THE GOOGLE SIGN IN, NO USER WITH THAT EMAIL IN OUR DATABASE, CREATE A NEW ACCOUNT AND REDIRECT TO LOGIN
-            const newUser = await db.query("insert into users (email, password, fname, l name, username) values ($1, $2, $3, $4, $5)", [profile.email, "google", "N/A", "N/A", profile.email]);
-            cb(null, newUser.rows[0]);
-        }else{
-            // ACCOUNT EXISTS, LOGGING THEM IN USING GOOGLE 
-            const results = await db.query("select id from users where email = $1", [profile.email]);
-            cur_user = results.rows[0].id;
-            cb(null, result.rows[0]);
-        }
-    }catch(err){
-        cb(err);
-    }
-}))
+// passport.use("google", new GoogleStrategy({
+//     clientID: process.env.GOOGLE_CLIENT_ID,
+//     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//     callbackURL: "http://localhost:3000/auth/google/list",
+//     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+// }, async (accessToken, refreshToken, profile, cb) => {
+//     // console.log(profile);
+//     try{
+//         const result = await db.query("select * from users where email = $1", [profile.email])
+//         if(result.rows.length === 0){
+//             // USING THE GOOGLE SIGN IN, NO USER WITH THAT EMAIL IN OUR DATABASE, CREATE A NEW ACCOUNT AND REDIRECT TO LOGIN
+//             const newUser = await db.query("insert into users (email, password, fname, l name, username) values ($1, $2, $3, $4, $5)", [profile.email, "google", "N/A", "N/A", profile.email]);
+//             cb(null, newUser.rows[0]);
+//         }else{
+//             // ACCOUNT EXISTS, LOGGING THEM IN USING GOOGLE 
+//             const results = await db.query("select id from users where email = $1", [profile.email]);
+//             cur_user = results.rows[0].id;
+//             cb(null, result.rows[0]);
+//         }
+//     }catch(err){
+//         cb(err);
+//     }
+// }));
 
 passport.serializeUser((user, cb) => {
     cb(null, user);
