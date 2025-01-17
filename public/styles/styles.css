@@ -2,10 +2,6 @@
     background-color: var(--dark-primary);
 }
 
-.red{
-    color: red;
-}
-
 p{
     margin: 0;
 }
@@ -15,7 +11,7 @@ p{
     --dark-secondary: rgb(43, 48, 53);
     --text: rgb(222, 226, 230);
     --purple: rgb(113, 44, 249);
-    --light-blue: rgb(75, 193, 232);
+    --accent: rgb(75, 193, 232);
     --green: #89a57d;
 }
 
@@ -68,7 +64,7 @@ header{
 }
 
 #signup{
-    background-color: var(--light-blue);
+    background-color: var(--accent);
     border-radius: 5px;
     margin-right: 8px;
     margin-left: 8px;
@@ -83,7 +79,7 @@ header{
     font-family: "Poppins", sans-serif;
     
     span{
-        color: var(--light-blue);
+        color: var(--accent);
     }
 }
 
@@ -101,7 +97,7 @@ header{
 
     i{
         background-color: var(--dark-secondary) !important;
-        color: var(--light-blue);
+        color: var(--accent);
         font-size: 5em;
     }
 
@@ -115,7 +111,7 @@ header{
 }
 
 #find{
-    background-color: var(--light-blue);
+    background-color: var(--accent);
 }
 
 #divider{
@@ -187,7 +183,7 @@ header{
 }
 
 #check{
-    color: var(--light-blue);
+    color: var(--accent);
     font-size: 2em;
 }
 
@@ -255,7 +251,7 @@ header{
     font-size: 5em;
     height: 200px;
     width: 200px;
-    color: var(--light-blue);
+    color: var(--accent);
     background-color: var(--dark-secondary);
 }
 
@@ -283,7 +279,7 @@ header{
 }
 
 #email-input:focus{
-    border: 2px solid var(--light-blue);
+    border: 2px solid var(--accent);
 }
 
 #password-input{
@@ -302,7 +298,7 @@ header{
 }
 
 #password-input:focus{
-    border: 2px solid var(--light-blue);
+    border: 2px solid var(--accent);
 }
 
 #fname-input{
@@ -321,7 +317,7 @@ header{
 }
 
 #fname-input:focus{
-    border: 2px solid var(--light-blue);
+    border: 2px solid var(--accent);
 }
 
 #lname-input{
@@ -340,7 +336,7 @@ header{
 }
 
 #lname-input:focus{
-    border: 2px solid var(--light-blue);
+    border: 2px solid var(--accent);
 }
 
 #username-input{
@@ -359,7 +355,7 @@ header{
 }
 
 #username-input:focus{
-    border: 2px solid var(--light-blue);
+    border: 2px solid var(--accent);
 }
 
 #register-form{
@@ -373,7 +369,7 @@ header{
     margin-top: 16px;
     width: 298px;
     height: 58px;
-    background-color: var(--light-blue);
+    background-color: var(--accent);
     box-shadow: 0px 0px 10px 1px var(--dark-primary);
     border: none;
     border-radius: 16px;
@@ -389,7 +385,7 @@ header{
     margin-top: 16px;
     width: 298px;
     height: 58px;
-    background-color: var(--light-blue);
+    background-color: var(--accent);
     box-shadow: 0px 0px 10px 1px var(--dark-primary);
     border: none;
     font-family: "Poppins", sans-serif;
@@ -413,7 +409,7 @@ header{
     #sign-in-span{
         padding-left: 8px;
         background-color: var(--dark-secondary);
-        color: var(--light-blue);
+        color: var(--accent);
     }
 
     #sign-in-span:hover{
@@ -439,7 +435,7 @@ header{
     #login-span{
         padding-left: 8px;
         background-color: var(--dark-secondary);
-        color: var(--light-blue);
+        color: var(--accent);
     }
 
     #login-span:hover{
@@ -525,7 +521,7 @@ header{
 }
 
 .circle-button:hover{
-    background-color: var(--light-blue);
+    background-color: var(--accent);
 }
 
 #add-todo{
@@ -536,7 +532,7 @@ header{
     margin-bottom: 16px;
     height: 80px;
     width: 80px;
-    background-color: var(--light-blue);
+    background-color: var(--accent);
     border: none;
     border-radius: 50%;
     box-shadow: none;
@@ -544,7 +540,7 @@ header{
     #plus-icon::before{
         font-size: 3.5em;
         color: var(--text);
-        background-color: var(--light-blue);
+        background-color: var(--accent);
         height: 56px;
         width: 56px;
     }
@@ -584,7 +580,8 @@ header{
 }
 
 .hide-it{
-    visibility: hidden;
+    /* visibility: hidden; */
+    display: none;
 }
 
 #popup{
@@ -598,25 +595,37 @@ header{
 }
 
 #top-div{
+    position: absolute;
+    top: 30px;
     margin-top: 140px;
-    height: 50px;
+    height: 150px;
     border: 1px solid var(--text);
-
     form{
         background-color: var(--dark-secondary)
     }
 }
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 501px) {
     #top-div{
-        width: 300px;
-        background-color: lime;
+        width: 500px;
+    }
+    #input-task{
+        width: 450px;
+    }
+    .inputs{
+        width: 100px !important;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
     #top-div{
-        width: 200px;
+        width: 400px;
+    }
+    #input-task{
+        width: 360px;
+    }
+    .inputs{
+        width: 82px !important;
     }
 }
 
@@ -624,7 +633,6 @@ header{
     background-color: var(--dark-primary);
     border-radius: 16px;
     height: 58px;
-    width: 250px;
     outline: none;
     border: 1px solid var(--text);
     color: var(--text);
@@ -651,7 +659,8 @@ header{
 #task-form{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    /* align-items: flex-end; */
+    align-items: center;
     border-radius: 10px;
 }
 
