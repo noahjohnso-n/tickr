@@ -24,6 +24,61 @@
         });
     </script>
 
+<% function getDate(x){ %>
+    <% var year, month, day;%>
+    <% var date = JSON.stringify(x); %>
+    <% year = date.substring(1,5) %>
+    <% month = date.substring(6,8) %>
+    <% day = date.substring(9,11) %>
+    <% var color; %>
+    <% if(month == "01"){ %>
+        <% month = "Jan"; %>
+    <% } else if(month == "02"){ %>
+        <% month = "Feb"; %>
+    <% } else if(month == "03"){ %>
+        <% month = "Mar"; %>
+    <% }  else if(month == "04"){ %>
+        <% month = "Apr"; %>
+    <% } else if(month == "05"){ %>
+        <% month = "May"; %>
+    <% } else if(month == "06"){ %>
+        <% month = "Jun"; %>
+    <% } else if(month == "07"){ %>
+        <% month = "Jul"; %>
+    <% } else if(month == "08"){ %>
+        <% month = "Aug"; %>
+    <% } else if(month == "09"){ %>
+        <% month = "Sep"; %>
+    <% } else if(month == "10"){ %>
+        <% month = "Oct"; %>
+    <% } else if(month == "11"){ %>
+        <% month = "Nov"; %>
+    <% } else if(month == "12"){ %>
+        <% month = "Dec"; %>
+    <% } %>
+    <% if(day == "01"){ %>
+        <% day = "1"; %>
+    <% } else if(day == "02"){ %>
+        <% day = "2"; %>
+    <% } else if(day == "03"){ %>
+        <% day = "3"; %>
+    <% }  else if(day == "04"){ %>
+        <% day = "4"; %>
+    <% } else if(day == "05"){ %>
+        <% day = "5"; %>
+    <% } else if(day == "06"){ %>
+        <% day = "6"; %>
+    <% } else if(day == "07"){ %>
+        <% day = "7"; %>
+    <% } else if(day == "08"){ %>
+        <% day = "8"; %>
+    <% } else if(day == "09"){ %>
+        <% day = "9"; %>
+    <% } %>
+    
+    <% return [year, month, day, color]; %>
+<% } %>
+
     <div id = "vh">
         <div id = "todo-screen">
             <div id = "popup" class = "hide-it"></div>
@@ -47,6 +102,7 @@
                 <div class = "todo-card">
                     <form id = "myForm" action = "/delete" method = "POST">
                         <button type = "submit" class = "circle-button"></button>
+                        <% const [year,month,day,color] = getDate(todo[i].due) %>
                         <div class = "task-info">
                             <div><p name = "checked-task" class = "task-desc"><%= todo[i].task %></p></div>
                             <% let tempId = `span-${i}`; %>

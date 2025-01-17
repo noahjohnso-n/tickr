@@ -255,12 +255,12 @@ app.post("/add", (req, res) => {
 passport.use("local", new Strategy({usernameField: 'email', passwordField: 'password'}, async function verify(email, password, cb) {
     try{
         const checkEmail = await db.query(`select * from users where email = $1`, [email]);
-        user_id = checkEmail.rows;
-        cur_user = user_id[0].id;
         
         if(checkEmail.rows.length > 0){
             const user = checkEmail.rows[0];
             const stored_password = user.password;
+            user_id = checkEmail.rows;
+            cur_user = user_id[0].id;
 
             bcrypt.compare(password, stored_password, (err, result) => {
                 if(err){
@@ -277,7 +277,9 @@ passport.use("local", new Strategy({usernameField: 'email', passwordField: 'pass
                 }
             });
         }else{
-            return cb("User not found");
+            // return cb("User not found"); 
+            error = true;
+            return cb(null, false);
         }
     }catch(err){
         return cb(err);
