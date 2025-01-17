@@ -1,0 +1,64 @@
+<%- include("partials/list-header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "/styles/home.css"> 
+    <title>Home</title>
+</head>
+<body id = "list-home">
+    <div id = "home">
+    <% let len = todo.length; %>
+    <script>
+        $(document).ready(function(){
+            $("#popup").click(function(){
+                $("#top-div").addClass("hide-it").css({top: "30px", opacity: "0"});
+                $("#popup").addClass("hide-it");
+            });
+
+            $("#add-todo").click(function(){
+                $("#top-div").removeClass("hide-it").animate({top: '-=30px', opacity: "1"}, "fast");
+                $("#popup").removeClass("hide-it");
+            });
+        });
+    </script>
+
+    <div id = "vh">
+        <div id = "todo-screen">
+            <div id = "popup" class = "hide-it"></div>
+            <div id = "top-div" class = "add-new hide-it">
+                <form id = "task-form" action = "/add" method = "POST">
+                    <input id = "input-task" name = "new-task-desc" placeholder="Task" autocomplete="off">
+                    <div id = "date-div">
+                        <input class = "inputs" id = "input-month" name = "new-task-month" placeholder="Month" autocomplete="off">
+                        <input class = "inputs" id = "input-day" name = "new-task-day" placeholder="Day" autocomplete="off">
+                        <input class = "inputs" id = "input-year" name = "new-task-year" placeholder="Year" autocomplete="off">
+                        <input id = "hiddenCurUser" name = "current_account" value = "<%= cur_user  %>">
+                        <button class = "inputs" id = "add-task" type = "submit">Add task</button>
+                    </div>
+                </form>
+            </div>
+            
+            <button id = "add-todo"><i id = "plus-icon" class="bi bi-plus"></i></button>
+            <% todo.sort((a, b) => a.due - b.due); %>
+            
+            <% for(var i = 0 ; i < todo.length ; i++){%>
+                <div class = "todo-card">
+                    <form id = "myForm" action = "/delete" method = "POST">
+                        <button type = "submit" class = "circle-button"></button>
+                        <div class = "task-info">
+                            <div><p name = "checked-task" class = "task-desc"><%= todo[i].task %></p></div>
+                            <% let tempId = `span-${i}`; %>
+                            <div><span id = <%= tempId %> class = "align-right" data-todo="<%= todo[i].due %>"><%= month %> <%= day %></span></div>
+                        </div>
+                        <input id = "inputText" type="hidden" name="checked-task" value="<%= todo[i].task %>">
+                    </form>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <a id = "logout-button" href = "/logout" role = "button">Log Out</a>
+    </div>
+</body>
+</html>
