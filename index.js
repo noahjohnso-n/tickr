@@ -10,7 +10,7 @@ import env from "dotenv";
 
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3005;
 const saltRounds = 10;
 env.config();
 
@@ -40,7 +40,7 @@ const db = new pg.Client({
     // database: "journal",
     // password: "Sir3Demo!",
     // port: 5432,
-    connectionString: process.env.DB_URL,
+    connectionString: process.env.NEW_DB_URL,
     ssl: { rejectUnauthorized: false} 
 });
   
